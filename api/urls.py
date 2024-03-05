@@ -5,7 +5,7 @@ from .views import(
      price_product,color_product,
      delete_product,price1_product,
      brind_product,iendswith_product,
-     istartswith,gte_product,lt_product,
+     istartswith,get_product_id,lt_product,
      gt_product,lst_models,
      get_name,update_product,
 )
@@ -22,7 +22,7 @@ urlpatterns = [
     path('<brind>/all/',brind_product),
     path('iendswith/<iendswith>/',iendswith_product),
     path('istartswith/<istartswith>',istartswith),
-    path('gte/<gte>/',gte_product),
+    path('gte/<int:pk>/',get_product_id),
     path('price_lt/<lt>/',lt_product),
     path('price_gt/<gt>/',gt_product),
     path('update/<int:pk>',update_product),

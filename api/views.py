@@ -76,8 +76,8 @@ def price_product(request:HttpRequest,price:float)->JsonResponse:
         data.append(i.to_dict())
     return JsonResponse(data,safe = False)
 
-def gte_product(request:HttpRequest,gte:float)->JsonResponse:
-    product = Mobile.objects.filter(id_gte = gte)
+def get_product_id(request:HttpRequest,pk:int)->JsonResponse:
+    product = Mobile.objects.filter(id = pk)
     data = []
     for i in product:
          data.append(i.to_dict())

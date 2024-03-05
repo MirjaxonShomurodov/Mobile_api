@@ -125,27 +125,17 @@ def istartswith(request:HttpRequest,istartswith:str)->JsonResponse:
         data.append(i.to_dict())
     return JsonResponse(data,safe=False)
 
-def endswith_product(request:HttpRequest,endswith:str)->JsonResponse:
-    product = Mobile.objects.filter(description_endswith = endswith)
-    data = []
-    for i in product:
-        data.append(i.to_dict())
-    return JsonResponse(data,safe=False)
-
-def year_product(request:HttpRequest,year)->JsonResponse:
-    product = Mobile.objects.filter(pub_date_year = year)
-    data = []
-    for i in product:
-        data.append(i.to_dict())
-    return JsonResponse(data,safe=False)
-
-def time_product(request:HttpRequest,time)->JsonResponse:
-    product = Mobile.objects.filter(pub_date_time = time)
-    data = []
-    for i in product:
-        data.append(i.to_dict())
-    return JsonResponse(data,safe=False)
-
+def lst_models(request: HttpRequest) -> JsonResponse:
+    """get all models"""
+    try:
+        product = Mobile.objects.all()
+        data = []
+        for i in product:
+            data.append(i.to_dict()['model'])
+        data = list(set(data))
+    except:
+        return JsonResponse({"data":"not found"})
+    return JsonResponse(data=data, safe=False)
 def update_product(request:HttpRequest,pk):
     if request.method=='POST':
         product = Mobile.objects.get(id=pk)
@@ -160,3 +150,15 @@ def update_product(request:HttpRequest,pk):
         product.model==data.get('company',product.model)
         product.save()
     return JsonResponse({'status':'200'})
+def get_name(request: HttpRequest, name: str) -> JsonResponse:
+    """get product by name"""
+    # Get product by name
+    try:
+        product = Mobile.objects.filter(model__contains = name)
+        data = []
+        for i in product:
+            data.append(i.to_dict())
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    # Return response
+    return JsonResponse(data=data, safe=False )

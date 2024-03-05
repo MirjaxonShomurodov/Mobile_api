@@ -6,8 +6,8 @@ from .views import(
      delete_product,price1_product,
      brind_product,iendswith_product,
      istartswith,gte_product,lt_product,
-     gt_product,endswith_product,year_product,
-     time_product,update_product,
+     gt_product,lst_models,
+     get_name,update_product,
 )
 
 urlpatterns = [
@@ -25,8 +25,7 @@ urlpatterns = [
     path('gte/<gte>/',gte_product),
     path('price_lt/<lt>/',lt_product),
     path('price_gt/<gt>/',gt_product),
-    path('endswith/<endswith>/',endswith_product),
-    path('year/<year>/',year_product),
-    path('tiem/<tiem>/',time_product),
     path('update/<int:pk>',update_product),
+    path('models/', lst_models),
+    path('models/<str:name>', get_name)
 ]

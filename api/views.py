@@ -80,47 +80,7 @@ def get_product_id(request:HttpRequest,pk:int)->JsonResponse:
     product = Mobile.objects.get(id = pk)
     return JsonResponse(product.to_dict())
 
-def lt_product(request:HttpRequest,lt:float)->JsonResponse:
-    product = Mobile.objects.filter(id_lt = lt)
-    data = []
-    for i in product:
-         data.append(i.to_dict())
-    return JsonResponse(data,safe=True)
 
-def gt_product(request:HttpRequest,gt:float)->JsonResponse:
-     product = Mobile.objects.filter(id_gt = gt)
-     data = []
-     for i in product:
-          data.append(i.to_dict())
-     return JsonResponse(data,safe=False)
-
-def price1_product(requset:HttpRequest,price1,price2)->JsonResponse:
-    product = Mobile.objects.filter(price__gte=price1,  price_lte=price2)
-    data = []
-    for i in product:
-        data.append(i.to_dict())
-    return JsonResponse(data,safe=False)
-
-def brind_product(request:HttpRequest,brind)->JsonResponse:
-    product = Mobile.objects.filter(brand=brind)
-    all = []
-    for i in product:
-        all.append(i.to_dict())
-    return JsonResponse(all,safe=False)
-
-def iendswith_product(request:HttpRequest, kp:str) ->JsonResponse:
-    product = Mobile.objects.filter(description__icontains=kp)
-    data = []
-    for i in product:
-         data.append(i.to_dict())
-    return JsonResponse(data, safe=False)
-
-def istartswith(request:HttpRequest,istartswith:str)->JsonResponse:
-    product = Mobile.objects.filter(description__istartswith=istartswith)
-    data = []
-    for i in product:
-        data.append(i.to_dict())
-    return JsonResponse(data,safe=False)
 
 def lst_models(request: HttpRequest) -> JsonResponse:
     """get all models"""

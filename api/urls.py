@@ -16,7 +16,7 @@ urlpatterns = [
     path("color/<color>/",color_product),
     path('price/<price>/',price_product),
     path('gte/<int:pk>',get_product_id),
-    path('update/<int:pk>',update_product),
+    path('update/<int:id>',update_product),
     path('models/', lst_models),
     path('models/<str:name>', get_name)
 ]

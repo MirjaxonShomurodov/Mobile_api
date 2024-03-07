@@ -93,20 +93,25 @@ def lst_models(request: HttpRequest) -> JsonResponse:
     except:
         return JsonResponse({"data":"not found"})
     return JsonResponse(data=data, safe=False)
-def update_product(request:HttpRequest,pk):
-    if request.method=='POST':
-        product = Mobile.objects.get(id=pk)
-        
-        data = json.loads(request.body.decode('utf-8'))
-        product.price==data.get('price',product.price),
-        product.img_url==data.get('img_url',product.price),
-        product.color==data.get('color',product.color),
-        product.ram==data.get('RAM',product.ram),
-        product.memory==data.get('memory',product.memory),
-        product.name==data.get('name',product),
-        product.model==data.get('company',product.model)
-        product.save()
-    return JsonResponse({'status':'200'})
+def update_product(request:HttpRequest,id:int):
+    if request.method == "POST":
+            data = request.body.decode('utf-8')
+            data = json.loads(data)
+            item = Mobile.objects.filter(id=id) 
+            item.update(
+                name = data['name'],
+                model = data['model'],
+                color = data['color'],
+                ram = data['ram'],
+                memory = data['memory'],
+                price = data['price'], 
+                img_url = data['url'], 
+            )
+            obj = Mobile.objects.all()
+            ruyxat = []
+            for item in obj:
+                ruyxat.append(item.to_dict())
+            return JsonResponse({"smartphes":ruyxat}, safe=False)
 def get_name(request: HttpRequest, name: str) -> JsonResponse:
     """get product by name"""
     # Get product by name
